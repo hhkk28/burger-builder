@@ -7,8 +7,8 @@ import NavigationMenu from '../NavigationMenu/NavigationMenu'
 const Toolbar = () => (
     <header className = {classes.Toolbar}>
         <div>Menu</div>
-        <Logo/>
-        <nav>
+        <Logo height="80%"/>
+        <nav className ={classes.DesktopOnly}>
             <NavigationMenu/>
         </nav>
     </header>
