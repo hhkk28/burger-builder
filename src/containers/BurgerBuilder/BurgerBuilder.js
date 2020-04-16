@@ -73,22 +73,37 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        this.setState({loading : true})
-        const postOrder = {
-            ingredients : this.state.ingredients,
-            totalPrice : this.state.totalPrice,
-            customerInformation : {
-                name: 'Harish Karthik',
-                contact: '9876543210'
-            }
-        }
-        axios.post('/orders.json',postOrder)
-            .then(response => {
-                setTimeout(() => this.setState({loading : false , purchaseModalDisplay : false}) , 1000)
-            })
-            .catch(error => {
-                setTimeout(() => this.setState({loading : false , purchaseModalDisplay : false}) , 1000)
-            })
+        // this.setState({loading : true})
+        // const postOrder = {
+        //     ingredients : this.state.ingredients,
+        //     totalPrice : this.state.totalPrice,
+        //     customerInformation : {
+        //         name: 'Harish Karthik',
+        //         contact: '9876543210'
+        //     }
+        // }
+        // axios.post('/orders.json',postOrder)
+        //     .then(response => {
+        //         setTimeout(() => this.setState({loading : false , purchaseModalDisplay : false}) , 1000)
+        //     })
+        //     .catch(error => {
+        //         setTimeout(() => this.setState({loading : false , purchaseModalDisplay : false}) , 1000)
+        //     })
+        this.props.history.push({
+            pathname: '/checkout',
+            data : {
+                ingredients : this.state.ingredients,
+                totalPrice : this.state.totalPrice
+            }})
+        // const queryParams = [];
+        // for (let i in this.state.ingredients) {
+        //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        // }
+        // const queryString = queryParams.join('&');
+        // this.props.history.push({
+        //     pathname: '/checkout',
+        //     search: '?' + queryString
+        // });
     }
 
     componentDidMount () {
