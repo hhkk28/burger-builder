@@ -5,7 +5,7 @@ const initialState = {
     totalPrice : 4
 }
 
-const reducer = (state,action) => {
+const reducer = (state = initialState,action) => {
     return state
 }
 
