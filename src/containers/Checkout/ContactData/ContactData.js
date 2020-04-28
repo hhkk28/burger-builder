@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import classes from './ContactData.module.css'
 import Button from '../../../components/ui/Button/Button'
 import LoaderAnimation from '../../../components/ui/LoaderAnimation/LoaderAnimation'
@@ -90,10 +91,9 @@ class ContactData extends Component {
         for (let formInputName in this.state.orderForm) {
             derivedCustomerData[formInputName] = this.state.orderForm[formInputName].value
         }
-        console.log(derivedCustomerData);
         const postOrder = {
-            ingredients : this.props.ingredients,
-            totalPrice : this.props.totalPrice,
+            ingredients : this.props.ings,
+            totalPrice : this.props.price,
             customerInformation : {
                 ...derivedCustomerData
             }
@@ -147,4 +147,11 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData
+const mapStatetoProps = state => {
+    return {
+        ings : state.ingredients,
+        price : state.totalPrice
+    }
+}
+
+export default connect(mapStatetoProps)(ContactData)
