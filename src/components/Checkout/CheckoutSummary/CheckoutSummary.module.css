@@ -1,11 +1,11 @@
-.CheckoutSummary{
-    text-align: center;
-    width: 80%;
-    margin: auto;
+.CheckoutSummary {
+  text-align: center;
+  width: 80%;
+  margin: auto;
 }
 
-@media screen and (min-width: 600px){
-    .CheckoutSummary {
-        width: 700px;
-    }
+@media screen and (min-width: 600px) {
+  .CheckoutSummary {
+    width: 700px;
+  }
 }

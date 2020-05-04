@@ -1,17 +1,17 @@
 .InputContainer {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
 }
 .Input {
-    display: block;
-    width: 100%;
-    padding: 8px 16px;
-    box-sizing: border-box;
-    font-size: 16px;
-    border:1px solid #cccccc;
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  font-size: 16px;
+  border: 1px solid #cccccc;
 }
 .Input:focus {
-    background-color: #ededed;
-    color: #333;
+  background-color: #ededed;
+  color: #333;
 }
