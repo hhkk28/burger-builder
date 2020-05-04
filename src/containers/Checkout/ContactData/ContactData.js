@@ -6,7 +6,7 @@ import LoaderAnimation from "../../../components/ui/LoaderAnimation/LoaderAnimat
 import axios from "../../../axios-orders";
 import FormInput from "../../../components/ui/FormInput/FormInput";
 import withErrorHandler from "../../../hoc/withErrorHandler";
-import * as purchaseActions from "../../../stores/actions/index";
+import * as actions from "../../../stores/actions/index";
 
 class ContactData extends Component {
   state = {
@@ -151,8 +151,7 @@ const mapStatetoProps = (state) => {
 
 const mapDispatchtoProps = (dispatch) => {
   return {
-    onOrderBurger: (orderData) =>
-      dispatch(purchaseActions.purchaseBurger(orderData)),
+    onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)),
   };
 };
 

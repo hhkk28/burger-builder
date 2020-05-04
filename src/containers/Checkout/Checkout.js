@@ -21,15 +21,6 @@ class Checkout extends Component {
   cancelCheckoutHandler = () => {
     this.props.history.goBack();
   };
-  // componentDidMount() {
-  //     const query = new URLSearchParams(this.props.location.search);
-  //     const ingredients = {};
-  //     for (let param of query.entries()) {
-  //         // ['salad', '1']
-  //         ingredients[param[0]] = +param[1];
-  //     }
-  //     this.setState({ingredients: ingredients});
-  // }
   componentDidMount() {
     this._isMounted = true;
     if (this._isMounted && this.props.location.data) {
