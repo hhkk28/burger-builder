@@ -9,8 +9,7 @@ import LoaderAnimation from "../../components/ui/LoaderAnimation/LoaderAnimation
 
 class MyOrders extends Component {
   componentDidMount() {
-    // console.log("did mount");
-    this.props.onFetchOrder();
+    this.props.onFetchOrder(this.props.token);
   }
   render() {
     let ordersDisplay = <LoaderAnimation />;
@@ -41,12 +40,13 @@ const mapStatetoProps = (state) => {
   return {
     orders: state.order.order,
     loading: state.order.loading,
+    token: state.authentication.token,
   };
 };
 
 const mapDispatchtoProps = (dispatch) => {
   return {
-    onFetchOrder: () => dispatch(actions.fetchOrders()),
+    onFetchOrder: (token) => dispatch(actions.fetchOrders(token)),
   };
 };
 

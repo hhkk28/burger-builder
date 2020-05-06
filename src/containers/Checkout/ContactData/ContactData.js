@@ -82,9 +82,6 @@ class ContactData extends Component {
     }
     this.setState({ orderForm: newOrderForm, orderFormValid: formIsValid });
   };
-  outofFocusHandler = (event) => {
-    console.log(this.state.orderForm);
-  };
   placeOrderHandler = (e) => {
     e.preventDefault();
     console.log("place order handler");
@@ -102,7 +99,7 @@ class ContactData extends Component {
         ...derivedCustomerData,
       },
     };
-    this.props.onOrderBurger(postOrder);
+    this.props.onOrderBurger(postOrder, this.props.token);
   };
   render() {
     const formElementsArray = [];
@@ -121,7 +118,6 @@ class ContactData extends Component {
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
             changed={(event) => this.inputChangeHandler(event, formElement.id)}
-            focusOut={this.outofFocusHandler}
           />
         ))}
         <Button buttonType="Success" disabled={!this.state.orderFormValid}>
@@ -146,12 +142,14 @@ const mapStatetoProps = (state) => {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
+    token: state.authentication.token,
   };
 };
 
-const mapDispatchtoProps = (dispatch) => {
+const mapDispatchtoProps = (dispatch, token) => {
   return {
-    onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)),
+    onOrderBurger: (orderData, token) =>
+      dispatch(actions.purchaseBurger(orderData, token)),
   };
 };
 
