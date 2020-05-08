@@ -7,10 +7,11 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (data) => {
+export const authSuccess = (localId, idToken) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData: data,
+    localId: localId,
+    idToken: idToken,
   };
 };
 
@@ -22,6 +23,9 @@ export const authFailed = (error) => {
 };
 
 export const authLogout = () => {
+  localStorage.removeItem("idToken");
+  localStorage.removeItem("localId");
+  localStorage.removeItem("expiryTime");
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
@@ -44,8 +48,14 @@ export const authentication = (email, password, isSignup) => {
     axios
       .post(url + myApiKey, signUpInfo)
       .then((response) => {
-        dispatch(authSuccess(response.data));
-        dispatch(authenticationTimeOut());
+        localStorage.setItem("idToken", response.data.idToken);
+        localStorage.setItem("localId", response.data.localId);
+        const expiryTime = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+        );
+        localStorage.setItem("expiryTime", expiryTime);
+        dispatch(authSuccess(response.data.localId, response.data.idToken));
+        dispatch(authenticationTimeOut(response.data.expiresIn * 1000));
       })
       .catch((error) => {
         dispatch(authFailed(error.response.data.error.message));
@@ -53,10 +63,36 @@ export const authentication = (email, password, isSignup) => {
   };
 };
 
-export const authenticationTimeOut = () => {
+export const authenticationTimeOut = (expiryTime) => {
   return (dispatch) => {
     setTimeout(() => {
       dispatch(authLogout());
-    }, 3600000);
+    }, expiryTime);
+  };
+};
+
+export const setAuthRedirectPath = (path) => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path,
+  };
+};
+
+export const authStateCheck = () => {
+  return (dispatch) => {
+    const expiryTime = localStorage.getItem("expiryTime");
+    const idToken = localStorage.getItem("idToken");
+    const localId = localStorage.getItem("localId");
+    const timeDifference = new Date(expiryTime) - new Date();
+    if (!idToken) {
+      dispatch(authLogout());
+    } else {
+      if (timeDifference < 0) {
+        dispatch(authLogout());
+      } else {
+        dispatch(authSuccess(localId, idToken));
+        dispatch(authenticationTimeOut(timeDifference));
+      }
+    }
   };
 };
