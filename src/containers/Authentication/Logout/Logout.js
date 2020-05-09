@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 
 class Logout extends Component {
   componentDidMount() {
-    console.log("logout component did mount");
     this.props.onLogout();
   }
   render() {

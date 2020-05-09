@@ -84,7 +84,6 @@ class ContactData extends Component {
   };
   placeOrderHandler = (e) => {
     e.preventDefault();
-    console.log("place order handler");
     this.setState({ loading: true });
     const derivedCustomerData = {};
     for (let formInputName in this.state.orderForm) {
